@@ -2,7 +2,7 @@ namespace:
   name: test
  
 image:
-  repository: mctsm/python-helloworld 
+  repository: mctsm/techtrends 
   tag: v1.0.0
 
 replicaCount: 3
