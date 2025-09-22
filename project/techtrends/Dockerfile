@@ -6,7 +6,7 @@ LABEL maintainer="Miguel Machado"
 EXPOSE 3111
 
 # • Install packages defined in the requirements.txt file
-COPY . /app
+COPY ./project/techtrends/ /app
 WORKDIR /app
 RUN pip install -r requirements.txt
 
