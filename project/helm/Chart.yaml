@@ -4,7 +4,8 @@ description:Helm Chart to template
 keywords:
 - Helm
 - techtrends 
-version: 1.0.0
+version: latest
 maintainers:
 - name: mcm
   email: migma@tdcnet.dk
+
