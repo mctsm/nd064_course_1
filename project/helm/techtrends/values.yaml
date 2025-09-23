@@ -22,10 +22,10 @@ resources:
         memory: "128Mi"
         cpu: "500m"
 
-spec:
-     containers:
-	     ports:
-               - containerPort: 3111
+#spec:
+ #    containers:
+	#     ports:
+     #          - containerPort: 3111
 
 livenessProbe:
    httpGet:
@@ -35,4 +35,5 @@ readinessProbe:
    httpGet:
           path: /healthz
              
+
 
