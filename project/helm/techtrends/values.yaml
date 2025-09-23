@@ -1,6 +1,5 @@
 namespace:
-  name: sandbox
-
+  name: demo
  
 service:
   port: 8111
@@ -55,6 +54,7 @@ configmap:
 #   httpGet:
  #         path: /healthz
              
+
 
 
 
