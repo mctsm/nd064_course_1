@@ -6,20 +6,12 @@ service:
   targetPort: 3111
   protocol: TCP
   type: ClusterIP
- 
-#service:
-#  port: 8111
-#  type: ClusterIP
 
 image:
   repository: techtrends
   tag: latest
   pullPolicy: IfNotPresent
 
-#image:
- # repository: nginx 
- # tag: alpine
- # pullPolicy: IfNotPresent
 
 replicaCount: 1
 
@@ -40,18 +32,14 @@ readinessProbe:
    httpGet:
           path: /healthz
 
-#resources:
-#  requests:
-#    cpu: 50m
-#    memory: 256Mi
-
 spec:
    containers:
             ports:
                - containerPort: 3111
 
-configmap:
-  data: "version: alpine"
+#configmap:
+ # data: "version: alpine"
+
 
 
 
