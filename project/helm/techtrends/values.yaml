@@ -32,6 +32,14 @@ resources:
             cpu: "500m"
 
 
+livenessProbe:
+   httpGet:
+          path: /healthz
+
+readinessProbe:
+   httpGet:
+          path: /healthz
+
 #resources:
 #  requests:
 #    cpu: 50m
@@ -39,6 +47,7 @@ resources:
 
 configmap:
   data: "version: alpine"
+
 
 
 
