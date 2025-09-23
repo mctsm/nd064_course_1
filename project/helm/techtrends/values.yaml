@@ -12,9 +12,14 @@ service:
 #  type: ClusterIP
 
 image:
-  repository: nginx 
-  tag: alpine
+  repository: techtrends
+  tag: latest
   pullPolicy: IfNotPresent
+
+#image:
+ # repository: nginx 
+ # tag: alpine
+ # pullPolicy: IfNotPresent
 
 replicaCount: 3
 
@@ -25,5 +30,6 @@ resources:
 
 configmap:
   data: "version: alpine"
+
 
 
