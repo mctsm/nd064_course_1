@@ -4,7 +4,7 @@ metadata:
   labels:
     app: techtrends
     tag: latest
-#  name: techtrends
+  name: techtrends
   namespace: {{ .Values.namespace.name }} 
 spec:
   replicas: {{ .Values.replicaCount }} 
@@ -26,7 +26,7 @@ spec:
       containers:
       - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        name: techtrends
+#        name: techtrends
         ports:
         - containerPort: 3111
           protocol: TCP
@@ -55,6 +55,7 @@ spec:
       #    limits:
         #    memory: "128Mi"
        #     cpu: "500m"
+
 
 
 
