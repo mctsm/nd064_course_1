@@ -1,5 +1,5 @@
 namespace:
-  name: demo
+  name: sandbox
  
 service:
   port: 8111
@@ -19,3 +19,4 @@ resources:
 
 configmap:
   data: "version: alpine"
+
