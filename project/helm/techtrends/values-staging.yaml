@@ -14,14 +14,15 @@ replicaCount: 3
 
 resources:
   requests:
-    cpu: 300m
-    memory: 90Mi
+    cpu: "300m"
+    memory: "90Mi"
   limits:
-    cpu: 500m
+    cpu: "500m"
     memory: "128Mi"
     
 
 
 #configmap:
 #  data: "version: 1.18.0"
+
 
