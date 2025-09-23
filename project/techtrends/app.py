@@ -1,7 +1,16 @@
 import sqlite3
-
+import logging
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
+from datetime import datetime
+
+## remove ms from log format
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'  # Excludes milliseconds
+)
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
@@ -14,7 +23,7 @@ def get_db_connection():
 def get_post(post_id):
     connection = get_db_connection()
     post = connection.execute('SELECT * FROM posts WHERE id = ?',
-                        (post_id,)).fetchone()
+                              (post_id,)).fetchone()
     connection.close()
     return post
 
@@ -22,30 +31,45 @@ def get_post(post_id):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
 
-# Define the main route of the web application 
+# Logging configuration
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+def log_event(message):
+    app.logger.info(f'{datetime.utcnow().isoformat()} - {message}')
+
+# Define the main route of the web application
 @app.route('/')
 def index():
+    print('The homepage has been retrieved.')
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
     connection.close()
+    log_event('The homepage has been retrieved.')
     return render_template('index.html', posts=posts)
 
-# Define how each individual article is rendered 
+# Define how each individual article is rendered
 # If the post ID is not found a 404 page is shown
 @app.route('/<int:post_id>')
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      return render_template('404.html'), 404
+        print('Post not found.')
+        log_event('Post not found.')
+        return render_template('404.html'), 404
     else:
-      return render_template('post.html', post=post)
+        print(f'Article "{post["title"]}" retrieved successfully.')
+        log_event(f'Article "{post["title"]}" retrieved successfully.')
+        return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    print('About Us page retrieved.')
+    log_event('About Us page retrieved.')
     return render_template('about.html')
 
-# Define the post creation functionality 
+# Define the post creation functionality
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
@@ -57,14 +81,48 @@ def create():
         else:
             connection = get_db_connection()
             connection.execute('INSERT INTO posts (title, content) VALUES (?, ?)',
-                         (title, content))
+                               (title, content))
             connection.commit()
             connection.close()
-
+            log_event(f'Article "{title}" created successfully.')
             return redirect(url_for('index'))
-
     return render_template('create.html')
+
+# healthz endpoint for the TechTrends application
+@app.route('/healthz')
+def status():
+    response = app.response_class(
+        response=json.dumps("OK - healthy"),
+        status=200,
+        mimetype='application/json'
+    )
+    app.logger.info('Status request successful')
+    app.logger.debug('DEBUG message')
+    return response
+
+# Database connection count
+db_connection_count = 0
+
+# Method to get the total amount of posts from the database
+def get_post_count():
+    global db_connection_count
+    connection = sqlite3.connect('database.db')
+    db_connection_count += 1
+    cursor = connection.cursor()
+    cursor.execute('SELECT COUNT(*) FROM posts')
+    post_count = cursor.fetchone()[0]
+    connection.close()
+    return post_count
+
+@app.route('/metrics', methods=['GET'])
+def metrics():
+    post_count = get_post_count()
+    metrics_response = {
+        "db_connection_count": db_connection_count,
+        "post_count": post_count
+    }
+    return jsonify(metrics_response), 200
 
 # start the application on port 3111
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', port='3111')
+    app.run(host='0.0.0.0', port=3111)
