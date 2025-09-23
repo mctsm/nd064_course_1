@@ -3,7 +3,7 @@ namespace:
  
 service:
   port: 5111
-  type: ClusterIP
+ # type: ClusterIP
 
 #image:
  # repository: mctsm/techtrends 
@@ -17,10 +17,11 @@ resources:
     cpu: 300m
     memory: 90Mi
   limits:
-    cpu: "500m"
+    cpu: 500m
     memory: "128Mi"
     
 
 
 #configmap:
 #  data: "version: 1.18.0"
+
