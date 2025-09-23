@@ -5,9 +5,9 @@ metadata:
     app: techtrends
     tag: latest
   name: techtrends
-#  namespace: sandbox
+  namespace: {{ .Values.namespace.name }} 
 spec:
-#  replicas: 1
+  replicas: {{ .Values.replicaCount }} 
   selector:
     matchLabels:
       app: techtrends
@@ -24,8 +24,8 @@ spec:
         tag: latest
     spec:
       containers:
-      - image: mctsm/techtrends:latest
-        imagePullPolicy: IfNotPresent
+      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: techtrends
         ports:
         - containerPort: 3111
@@ -55,6 +55,7 @@ spec:
       #    limits:
         #    memory: "128Mi"
        #     cpu: "500m"
+
 
 
 
