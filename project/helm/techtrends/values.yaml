@@ -45,13 +45,14 @@ readinessProbe:
 #    cpu: 50m
 #    memory: 256Mi
 
-pec:
+spec:
    containers:
             ports:
                - containerPort: 3111
 
 configmap:
   data: "version: alpine"
+
 
 
 
