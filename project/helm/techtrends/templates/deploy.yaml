@@ -4,7 +4,7 @@ metadata:
   labels:
     app: techtrends
     tag: latest
-  name: techtrends
+#  name: techtrends
   namespace: {{ .Values.namespace.name }} 
 spec:
   replicas: {{ .Values.replicaCount }} 
@@ -55,6 +55,7 @@ spec:
       #    limits:
         #    memory: "128Mi"
        #     cpu: "500m"
+
 
 
 
