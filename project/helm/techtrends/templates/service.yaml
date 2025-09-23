@@ -5,7 +5,7 @@ metadata:
     app: techtrends
     tag: latest
   name: techtrends
-  namespace: sandbox
+#  namespace: sandbox
 spec:
   ports:
   - port: 4111
@@ -15,3 +15,4 @@ spec:
     app: techtrends
     tag: latest
   type: ClusterIP
+
