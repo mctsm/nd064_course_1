@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: techtrends
+  name: techtrends-prod
   namespace: argocd
 spec:
   destination:
@@ -12,6 +12,8 @@ spec:
     helm:
       valueFiles:
       - values-prod.yaml
-    path: solutions/helm/techtrends
-    repoURL: https://github.com/mctsm/project
+    path: project/helm/techtrends
+    repoURL: https://github.com/mctsm/nd064_course_1
     targetRevision: HEAD
+
+
