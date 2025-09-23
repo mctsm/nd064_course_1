@@ -1,9 +1,15 @@
 namespace:
   name: sandbox
- 
+
 service:
-  port: 8111
+  port: 4111
+  targetPort: 3111
+  protocol: TCP
   type: ClusterIP
+ 
+#service:
+#  port: 8111
+#  type: ClusterIP
 
 image:
   repository: nginx 
@@ -19,4 +25,5 @@ resources:
 
 configmap:
   data: "version: alpine"
+
 
