@@ -8,7 +8,7 @@ service:
   type: ClusterIP
 
 image:
-  repository: techtrends
+  repository: mctsm/techtrends
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -39,6 +39,7 @@ spec:
 
 #configmap:
  # data: "version: alpine"
+
 
 
 
