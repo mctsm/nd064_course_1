@@ -4,8 +4,8 @@ metadata:
   labels:
     app: techtrends
     tag: latest
-  name: techtrends
-  namespace: sandbox
+#  name: techtrends
+#  namespace: sandbox
 spec:
   replicas: 1
   selector:
@@ -55,3 +55,4 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+
